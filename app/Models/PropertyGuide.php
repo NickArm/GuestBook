@@ -7,7 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class PropertyGuide extends Model
 {
+
+    protected $fillable = ['title', 'category_id', 'video_url', 'video_file', 'content'];
     use HasFactory;
+   
+
     public function property()
     {
         return $this->belongsTo(Property::class);

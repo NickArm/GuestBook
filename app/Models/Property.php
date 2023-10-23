@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Property extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'property_title',
+        'email',
+        'phone',
+        'address',
+        'country',
+        'google_maps',
+        'checkin',
+        'checkout',
+        'property_rules',
+    ];
     
     public function owner()
     {

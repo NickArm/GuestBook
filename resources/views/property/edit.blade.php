@@ -18,7 +18,7 @@
                     </svg>
                 </span>
                 <!--end::Svg Icon-->
-                <h2>Add New Property</h2>
+                <h2>Edit Property</h2>
             </div>
             <!--end::Card title-->
         </div>
@@ -26,8 +26,9 @@
         <!--begin::Card body-->
         <div class="card-body pt-5">
             <!--begin::Form-->
-            <form id="add_property_form" class="form" action="{{ route('property.store') }}" method="post">
+            <form action="{{ route('property.update', $property->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @method('PUT')
                 <!--begin::Input group-->
                 <div class="fv-row mb-7">
                     <!--begin::Label-->
@@ -38,7 +39,8 @@
                     </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="text" class="form-control form-control-solid" name="propert_title" value="" />
+                    <input type="text" class="form-control form-control-solid" name="property_title"
+                        value="{{ old('property_title', $property->title) }}" />
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
@@ -57,7 +59,8 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="email" class="form-control form-control-solid" name="email" value="" />
+                            <input type="email" class="form-control form-control-solid" name="email"
+                                value="{{ old('email', $property->email) }}" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -75,7 +78,8 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" name="phone" value="" />
+                            <input type="text" class="form-control form-control-solid" name="phone"
+                                value="{{ old('phone', $property->phone) }}" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -97,7 +101,8 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" name="address" value="" />
+                            <input type="text" class="form-control form-control-solid" name="address"
+                                value="{{ old('address', $property->address) }}" />
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -639,7 +644,8 @@
                     </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <input type="text" class="form-control form-control-solid" name="google_maps" value="" />
+                    <input type="text" class="form-control form-control-solid" name="google_map_url"
+                        {{ old('google_map_url', $property->google_map_url) }} />
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->
@@ -657,7 +663,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" name="checkin"
+                            <input type="time" class="form-control form-control-solid" name="checkin"
                                 value="" />
                             <!--end::Input-->
                         </div>
@@ -676,7 +682,7 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-                            <input type="text" class="form-control form-control-solid" name="checkout"
+                            <input type="time" class="form-control form-control-solid" name="checkout"
                                 value="" />
                             <!--end::Input-->
                         </div>
@@ -696,7 +702,7 @@
                     </label>
                     <!--end::Label-->
                     <!--begin::Input-->
-                    <textarea class="form-control form-control-solid" name="property_rules"></textarea>
+                    <textarea class="form-control form-control-solid" name="property_rules">{{ old('rules', $property->rules) }}</textarea>
                     <!--end::Input-->
                 </div>
                 <!--end::Input group-->

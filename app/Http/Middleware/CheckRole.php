@@ -6,7 +6,8 @@ use Closure;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
-
+use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PropertyGuideController;
 
 class CheckRole
 {
