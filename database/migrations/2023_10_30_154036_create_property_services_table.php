@@ -13,19 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('local_businesses', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('property_id');
+            $table->unsignedBigInteger('property_id'); // foreign key to properties
             $table->string('title');
             $table->text('description');
-            $table->text('image')->nullable(); // Will store image path.
-            $table->text('google_map')->nullable();
-            $table->text('directions_url')->nullable();
-            $table->text('external_url')->nullable(); // For website or social media.
+            $table->string('image')->nullable();
+            $table->json('form_definition')->nullable();
             $table->timestamps();
-
-            $table->foreign('category_id')->references('id')->on('local_business_categories')->onDelete('cascade');
+            
             $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
         });
     }
@@ -37,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('local_businesses');
+        Schema::dropIfExists('property_services');
     }
 };

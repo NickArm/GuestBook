@@ -133,7 +133,8 @@
                                 <!--end::User-->
                                 <!--begin::Actions-->
                                 <div class="d-flex my-4">
-                                    <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
+                                    <a href="/owner/{{ $owner->id }}/edit" class="btn btn-sm btn-light me-2"
+                                        id="kt_user_follow_button">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
                                         <span class="svg-icon svg-icon-3 d-none">
                                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -148,7 +149,7 @@
                                         </span>
                                         <!--end::Svg Icon-->
                                         <!--begin::Indicator label-->
-                                        <span class="indicator-label">Follow</span>
+                                        <span class="indicator-label">Edit Owner</span>
                                         <!--end::Indicator label-->
                                         <!--begin::Indicator progress-->
                                         <span class="indicator-progress">Please wait...
@@ -306,30 +307,16 @@
     </div>
 
     @foreach ($properties as $property)
-        <div class="col-xl-12 mb-xl-10">
+        <div class="col-xl-6 mb-xl-10">
             <!--begin::Lists Widget 19-->
             <div class="card card-flush h-xl-100">
                 <!--begin::Heading-->
                 <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px"
                     style="background-image:url({{ asset('media/svg/shapes/top-green.png') }}" data-theme="light">
-
-
-
                     <!--begin::Title-->
                     <h3 class="card-title align-items-start flex-column text-white pt-15">
-                        <span class="fw-bold fs-2x mb-3">{{ $property->title }}</span>
-                        <div class="fs-4 text-white">
-                            <span class="opacity-75">You have</span>
-                            <span class="position-relative d-inline-block">
-                                <a href="{{ route('property.show', $property->id) }}"
-                                    class="link-white opacity-75-hover fw-bold d-block mb-1">4 tasks</a>
-                                <!--begin::Separator-->
-                                <span
-                                    class="position-absolute opacity-50 bottom-0 start-0 border-2 border-body border-bottom w-100"></span>
-                                <!--end::Separator-->
-                            </span>
-                            <span class="opacity-75">to comlete</span>
-                        </div>
+                        <span class="fw-bold fs-2x mb-3"><a href="{{ route('property.show', $property->id) }}"
+                                class="link-white opacity-75-hover fw-bold d-block mb-1">{{ $property->title }}</a></span>
                     </h3>
                     <!--end::Title-->
                     <!--begin::Toolbar-->
@@ -458,7 +445,8 @@
                                     <!--begin::Stats-->
                                     <div class="m-0">
                                         <!--begin::Number-->
-                                        <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">37</span>
+                                        <span
+                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{ $servicesCount }}</span>
                                         <!--end::Number-->
                                         <!--begin::Desc-->
                                         <span class="text-gray-500 fw-semibold fs-6">Property Services</span>
@@ -495,7 +483,8 @@
                                     <!--begin::Stats-->
                                     <div class="m-0">
                                         <!--begin::Number-->
-                                        <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">6</span>
+                                        <span
+                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{ $guidesCount }}</span>
                                         <!--end::Number-->
                                         <!--begin::Desc-->
                                         <span class="text-gray-500 fw-semibold fs-6">Property Guides</span>
@@ -530,10 +519,11 @@
                                     <!--begin::Stats-->
                                     <div class="m-0">
                                         <!--begin::Number-->
-                                        <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">4,7</span>
+                                        <span
+                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{ $businessCount }}</span>
                                         <!--end::Number-->
                                         <!--begin::Desc-->
-                                        <span class="text-gray-500 fw-semibold fs-6">Local Recommedations</span>
+                                        <span class="text-gray-500 fw-semibold fs-6">Local Businesses</span>
                                         <!--end::Desc-->
                                     </div>
                                     <!--end::Stats-->
@@ -567,10 +557,11 @@
                                     <!--begin::Stats-->
                                     <div class="m-0">
                                         <!--begin::Number-->
-                                        <span class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">822</span>
+                                        <span
+                                            class="text-gray-700 fw-bolder d-block fs-2qx lh-1 ls-n1 mb-1">{{ $faqsCount }}</span>
                                         <!--end::Number-->
                                         <!--begin::Desc-->
-                                        <span class="text-gray-500 fw-semibold fs-6">Hours Learned</span>
+                                        <span class="text-gray-500 fw-semibold fs-6">FAQs</span>
                                         <!--end::Desc-->
                                     </div>
                                     <!--end::Stats-->

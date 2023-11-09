@@ -1,0 +1,4 @@
+#myTabContent .guide .guide-image {
+    height: 200px !important;
+    object-fit: cover;
+}

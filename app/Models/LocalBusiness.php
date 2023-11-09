@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class LocalBusiness extends Model
 {
     use HasFactory;
-    protected $fillable = ['category_id', 'title', 'description', 'image', 'google_map', 'directions_url', 'external_url'];
+    protected $fillable = ['category_id', 'property_id', 'title', 'description', 'image', 'google_map', 'directions_url', 'external_url'];
     
     public function category()
     {
         return $this->belongsTo(LocalBusinessCategory::class, 'category_id');
     }
     
-    public function properties()
+    public function property()
     {
-        return $this->belongsToMany(Property::class);
+        return $this->belongsTo(Property::class);
     }
 }

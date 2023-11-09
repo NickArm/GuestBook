@@ -15,4 +15,9 @@ class LocalBusinessCategory extends Model
     {
         return $this->hasMany(LocalBusiness::class, 'category_id');
     }
+    
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
 }

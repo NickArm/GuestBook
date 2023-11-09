@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content')->nullable(); // Will use text editor in the future
             $table->string('video_url')->nullable(); // Optional if they want to add YouTube link
+            $table->string('image')->nullable();
             $table->string('video_file')->nullable(); // Optional if they upload an mp4
             $table->timestamps();
 

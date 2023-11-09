@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class FAQ extends Model
 {
     use HasFactory;
+    protected $table = 'faqs';
+    protected $fillable = ['question', 'answer', 'category_id', 'property_id'];
 
     public function property()
     {

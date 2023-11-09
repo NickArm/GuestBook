@@ -24,6 +24,7 @@ return new class extends Migration
         $table->time('check_in_time')->nullable();
         $table->time('check_out_time')->nullable();
         $table->string('pin')->nullable();
+        $table->string('main_image')->nullable();
         $table->text('google_map_url')->nullable(); // This will store the Google Map URL
         $table->text('rules')->nullable(); // This will store the rules in text format
         $table->timestamps();

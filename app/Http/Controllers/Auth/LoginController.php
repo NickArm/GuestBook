@@ -42,19 +42,18 @@ class LoginController extends Controller
 
     protected function redirectTo()
     {
-        // Get the authenticated user
-        $user = Auth::user();
+        // Check user role based on a column in the users table
+        $userRole = auth()->user()->role; // Assuming you have a 'role' column
 
-        // Check the user's role
-        if ($user->role == 'owner') {
-            return '/owner/dashboard';
-        } else if ($user->role == 'admin') {
+        if ($userRole === 'admin') {
             return '/admin/dashboard';
+        } elseif ($userRole === 'owner') {
+            return '/owner/dashboard';
+        } else {
+            return '/login'; // default route for other users
         }
-
-        // Default redirection
-        return '/dashboard';
     }
+
 
     public function logout(Request $request)
     {

@@ -14,9 +14,9 @@ class Property extends Model
         'phone',
         'address',
         'country',
-        'google_maps',
-        'checkin',
-        'checkout',
+        'google_map_url',
+        'check_in_time',
+        'check_out_time',
         'property_rules',
     ];
     
@@ -39,5 +39,16 @@ class Property extends Model
     {
         return $this->belongsToMany(LocalBusiness::class);
     }
+    
+    public function localBusinessCategories()
+    {
+        return $this->hasMany(LocalBusinessCategory::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(PropertyService::class);
+    }
+
 
 }

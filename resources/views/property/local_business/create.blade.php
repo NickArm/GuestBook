@@ -9,7 +9,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3 ">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">
-                        Create New Guide
+                        Create New Local Business
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
@@ -24,7 +24,8 @@
         <div class="card card-flush h-lg-100">
 
             <div class="card-body pt-5">
-                <form action="{{ route('guide.store', $property) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('local-business.store', ['property' => $property->id]) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
 
 
@@ -32,14 +33,14 @@
                     <div class="fv-row mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold form-label mt-3">
-                            <span class="required">Guide Name</span>
+                            <span class="required">Business Name</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                title="Enter the guide's name."></i>
+                                title="Enter the business's name."></i>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
                         <input type="text" class="form-control form-control-solid" name="title"
-                            placeholder="Guide Name">
+                            placeholder="Business Name" required>
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
@@ -65,20 +66,17 @@
                         </div>
                     </div>
 
-
-
-
                     <!--begin::Input group-->
                     <div class="fv-row mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold form-label mt-3">
-                            <span class="required">Youtube/URL Video</span>
+                            <span class="required">Business's Description</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                title="Enter youtube url"></i>
+                                title="Enter business's Description"></i>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="url" class="form-control form-control-solid" name="video_url" placeholder="Video">
+                        <textarea name="description" class="form-control form-control-solid" rows="5" cols="40" required></textarea>
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
@@ -88,7 +86,7 @@
                     <div class="mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold mb-3">
-                            <span>Guide Image</span>
+                            <span>Business Image</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                 title="Allowed file types: png, jpg, jpeg."></i>
                         </label>
@@ -141,26 +139,59 @@
                         <!--end::Image input wrapper-->
                     </div>
                     <!--end::Input group-->
-                    <div class="form-group">
-                        <label>Video File</label>
-                        <input type="file" name="video_file" accept="video/*">
-                    </div>
+
+
                     <!--begin::Input group-->
                     <div class="fv-row mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold form-label mt-3">
-                            <span class="required">Guide Description</span>
+                            <span class="required">GMB / Google Map Url</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                title="Enter your message"></i>
+                                title="Enter youtube url"></i>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <textarea name="content" class="form-control form-control-solid" rows="5" cols="40"></textarea>
+                        <input type="url" class="form-control form-control-solid" name="google_map"
+                            placeholder="Google Map">
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Add Guide</button>
+
+
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                            <span class="required">Directions URL</span>
+                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                title="Enter youtube url"></i>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input type="url" class="form-control form-control-solid" name="directions_url"
+                            placeholder="Directions Url">
+                        <!--end::Input-->
+                    </div>
+                    <!--end::Input group-->
+
+                    <!--begin::Input group-->
+                    <div class="fv-row mb-7">
+                        <!--begin::Label-->
+                        <label class="fs-6 fw-semibold form-label mt-3">
+                            <span class="required">Website / External URL</span>
+                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                title="Enter youtube url"></i>
+                        </label>
+                        <!--end::Label-->
+                        <!--begin::Input-->
+                        <input type="url" class="form-control form-control-solid" name="external_url"
+                            placeholder="External Url">
+                        <!--end::Input-->
+                    </div>
+                    <!--end::Input group-->
+
+                    <div>
+                        <button type="submit" class="btn btn-primary">Add Local Business</button>
                     </div>
                 </form>
             </div>

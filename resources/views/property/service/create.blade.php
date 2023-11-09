@@ -9,7 +9,7 @@
                 <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3 ">
                     <!--begin::Title-->
                     <h1 class="page-heading d-flex text-gray-900 fw-bold fs-3 flex-column justify-content-center my-0">
-                        Create New Guide
+                        Create New Service
                     </h1>
                     <!--end::Title-->
                     <!--begin::Breadcrumb-->
@@ -21,74 +21,56 @@
             </div>
             <!--end::Toolbar container-->
         </div>
+
+
+
+
+
         <div class="card card-flush h-lg-100">
 
             <div class="card-body pt-5">
-                <form action="{{ route('guide.store', $property) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('service.store', ['property' => $property->id]) }}" method="post"
+                    enctype="multipart/form-data">
                     @csrf
-
+                    <!-- Regular form fields for service name, description, and image -->
 
                     <!--begin::Input group-->
                     <div class="fv-row mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold form-label mt-3">
-                            <span class="required">Guide Name</span>
+                            <span class="required">Service Name</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                title="Enter the guide's name."></i>
+                                title="Enter the contact's name."></i>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="text" class="form-control form-control-solid" name="title"
-                            placeholder="Guide Name">
+                        <input type="text" class="form-control form-control-solid" name="property_service_name"
+                            placeholder="Service Name">
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
 
-                    <!--begin::Input group-->
-                    <div class="fv-row mb-7">
-                        <!--begin::Label-->
-                        <label class="fs-6 fw-semibold form-label mt-3">
-                            <span class="required">Category</span>
-                        </label>
-                        <!--end::Label-->
-                        <div class="w-100">
-                            <div class="form-floating border rounded">
-                                <!--begin::Select2-->
-                                <select id="category_id" class="form-select form-select-solid lh-1 py-3" name="category_id"
-                                    data-placeholder="Select a category">
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-
-
 
                     <!--begin::Input group-->
                     <div class="fv-row mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold form-label mt-3">
-                            <span class="required">Youtube/URL Video</span>
+                            <span class="required">Service Name</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                title="Enter youtube url"></i>
+                                title="Enter the contact's name."></i>
                         </label>
                         <!--end::Label-->
                         <!--begin::Input-->
-                        <input type="url" class="form-control form-control-solid" name="video_url" placeholder="Video">
+                        <textarea class="form-control form-control-solid" name="property_service_description" placeholder="Service Description"></textarea>
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
-
 
                     <!--begin::Input group-->
                     <div class="mb-7">
                         <!--begin::Label-->
                         <label class="fs-6 fw-semibold mb-3">
-                            <span>Guide Image</span>
+                            <span>Service Image</span>
                             <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                 title="Allowed file types: png, jpg, jpeg."></i>
                         </label>
@@ -114,11 +96,10 @@
                                 <!--end::Preview existing avatar-->
                                 <!--begin::Edit-->
                                 <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                    data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change Image">
+                                    data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change avatar">
                                     <i class="bi bi-pencil-fill fs-7"></i>
                                     <!--begin::Inputs-->
-                                    <input type="file" name="image" id="image" class="form-control"
-                                        accept=".png, .jpg, .jpeg" />
+                                    <input type="file" name="image" accept=".png, .jpg, .jpeg" />
                                     <input type="hidden" name="image_remove" />
                                     <!--end::Inputs-->
                                 </label>
@@ -141,44 +122,33 @@
                         <!--end::Image input wrapper-->
                     </div>
                     <!--end::Input group-->
-                    <div class="form-group">
-                        <label>Video File</label>
-                        <input type="file" name="video_file" accept="video/*">
-                    </div>
-                    <!--begin::Input group-->
-                    <div class="fv-row mb-7">
-                        <!--begin::Label-->
-                        <label class="fs-6 fw-semibold form-label mt-3">
-                            <span class="required">Guide Description</span>
-                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                title="Enter your message"></i>
-                        </label>
-                        <!--end::Label-->
-                        <!--begin::Input-->
-                        <textarea name="content" class="form-control form-control-solid" rows="5" cols="40"></textarea>
-                        <!--end::Input-->
-                    </div>
-                    <!--end::Input group-->
-                    <div class="form-group">
-                        <button class="btn btn-primary" type="submit">Add Guide</button>
-                    </div>
+
+                    <input hidden type="text" name="definition" id="formDefinition">
+
+                    <label class="fs-6 fw-semibold form-label mt-3">
+                        <span>Contact Form Builder</span>
+                    </label>
+
+
+                    <div class="build-wrap"></div>
+                    <input id="save_service" type="submit" class="btn btn-primary" value="Create Service">
                 </form>
+                <!-- jQuery -->
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" defer></script>
+                <script>
+                    let formBuilder; // Declare formBuilder outside of any function
+
+                    $(document).ready(function() {
+                        formBuilder = $('.build-wrap').formBuilder(); // Initialize it here
+                    });
+
+                    document.getElementById("save_service").addEventListener("click", () => {
+                        const result = formBuilder.actions.save();
+                        $('#formDefinition').val(JSON.stringify(result));
+                    });
+                </script>
             </div>
         </div>
-
-        <!--end::Global Javascript Bundle-->
-        <!--begin::Custom Javascript(used for this page only)-->
-        <script src="{{ asset('js/components/util.js') }}"></script>
-        <script src="{{ asset('js/custom/apps/user-management/users/list/table.js') }}"></script>
-        <script src="{{ asset('js/custom/apps/user-management/users/list/export-users.js') }}"></script>
-        <script src="{{ asset('js/custom/apps/user-management/users/list/add.js') }}"></script>
-        <script src="{{ asset('js/widgets.bundle.js') }}"></script>
-        <script src="{{ asset('js/custom/widgets.js') }}"></script>
-        <script src="{{ asset('js/custom/apps/chat/chat.js') }}"></script>
-        <script src="{{ asset('js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-        <script src="{{ asset('js/custom/utilities/modals/create-app.js') }}"></script>
-        <script src="{{ asset('js/custom/utilities/modals/users-search.js') }}"></script>
-        <!--end::Custom Javascript-->
-        <!--end::Javascript-->
     </div>
 @endsection

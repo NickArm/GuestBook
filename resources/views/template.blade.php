@@ -31,13 +31,13 @@ License: For each use you must have a valid license purchased only from above li
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
     <!--end::Fonts-->
     <!--begin::Vendor Stylesheets(used for this page only)-->
-    <link href="{{ asset('plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('plugins/custom/datatables/datatables.bundle.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Vendor Stylesheets-->
 
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{ asset('plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 
 </head>
@@ -136,18 +136,12 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Global Javascript Bundle(mandatory for all pages)-->
     @include('inc.footer_scripts');
     <!--end::Global Javascript Bundle-->
-    <!--begin::Vendors Javascript(used for this page only)-->
-    <script src="{{ asset('plugins/custom/fullcalendar/fullcalendar.bundle.js') }}"></script>
-    <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
-    <!--end::Vendors Javascript-->
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('js/custom/widgets.js') }}"></script>
     <script src="{{ asset('js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('js/custom/utilities/modals/upgrade-plan.js') }}"></script>
-    <script src="{{ asset('js/custom/utilities/modals/create-app.js') }}"></script>
-    <script src="{{ asset('js/custom/utilities/modals/new-target.js') }}"></script>
-    <script src="{{ asset('js/custom/utilities/modals/users-search.js') }} "></script>
+
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 </body>

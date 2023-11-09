@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyGuide extends Model
 {
 
-    protected $fillable = ['title', 'category_id', 'video_url', 'video_file', 'content'];
+    protected $fillable = ['title', 'category_id', 'video_url', 'video_file', 'content','image'];
     use HasFactory;
    
 
