@@ -11,7 +11,7 @@ use App\Models\LocalBusiness;
 use App\Models\LocalBusinessCategory;
 use App\Models\PropertyService;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
+
 
 
 class PropertyController extends Controller
@@ -70,7 +70,7 @@ class PropertyController extends Controller
     public function update(Request $request, $id)
     {
 
-        try {
+    
         $property = Property::findOrFail($id);
         // Validation
         $validatedData = $request->validate([
@@ -102,7 +102,7 @@ class PropertyController extends Controller
         if ($request->hasFile('property_main_image')) {
             // First, we delete the old image if it exists
             if ($property->main_image) {
-                Storage::disk('public')->delete($property->main_image); // Make sure to use the correct path
+                $deleteResult = Storage::disk('public')->delete($property->main_image);
             }
 
             // Now, let's define the new path
@@ -111,21 +111,14 @@ class PropertyController extends Controller
 
             // Store the image and get the path
             $filePath = $request->file('property_main_image')->store($path, 'public');
-            Log::info('Image: ' . $property->main_image = $filePath);
+           
             $property->main_image = $filePath;
         }
         
         $property->save();
 
         return redirect()->route('property.edit', $id)->with('success', 'Property updated successfully');
-    } catch (\Exception $e) {
-        Log::info('Raw check_in_time from request: ' . $request->input('check_in_time'));
-        Log::info('Raw check_out_time from request: ' . $request->input('check_out_time'));
-
-        // If there is any exception, let's log that as well
-        Log::error("Error updating property with ID: $id - Error: {$e->getMessage()}");
-        return back()->withErrors('Error updating property.');
-    }
+    
     }
 
 

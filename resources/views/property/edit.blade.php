@@ -56,7 +56,8 @@
                         <div class="image-input image-input-outline image-input-placeholder image-input-empty image-input-empty"
                             data-kt-image-input="true">
                             <!--begin::Preview existing avatar-->
-                            <div class="image-input-wrapper w-100px h-100px" style="background-image: url('')"></div>
+                            <div class="image-input-wrapper w-100px h-100px"
+                                style="background-image: url('{{ asset('storage/' . $property->main_image) }}')"></div>
                             <!--end::Preview existing avatar-->
                             <!--begin::Edit-->
                             <label class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"

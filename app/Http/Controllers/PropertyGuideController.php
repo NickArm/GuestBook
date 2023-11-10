@@ -7,6 +7,7 @@ use App\Models\Property;
 use App\Models\GuideCategory;
 use App\Models\PropertyGuide;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class PropertyGuideController extends Controller
 {
@@ -49,40 +50,45 @@ class PropertyGuideController extends Controller
         return view('property.guide.edit', compact('property', 'guide', 'categories'));
     }
 
-    public function update(Request $request, PropertyService $service)
+    public function update(Request $request, Property $property, PropertyGuide $guide)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Image validation
-            'definition' => 'required|json', // JSON validation for the dynamic form definition
+        $data = $request->validate([
+            'title' => 'required|string|max:255',
+            'category_id' => 'required|exists:guide_categories,id',
+            'video_url' => 'nullable|url',
+            'video_file' => 'nullable|file|mimes:mp4,avi,mkv',
+            'content' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif'
         ]);
 
-        $property = $service->property; // Assuming that a service belongs to a property
-        $ownerId = $property->owner_id; // Adjust this according to your actual relationship/accessor
+        $guide->title = $data['title'];
+        $guide->category_id = $data['category_id'];
+        $guide->video_url = $data['video_url'];
+        $guide->content = $data['content'];
 
         if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($service->image) {
-                Storage::disk('public')->delete("/owners/{$ownerId}/properties/{$property->id}/services/{$service->image}");
+            if ($guide->image) {
+                Storage::disk('public')->delete($guide->image);
             }
 
-            // Prepare the new path
-            $path = "owners/{$ownerId}/properties/{$property->id}/services";
-
-            // Save the new image and store the new filename
-            $imageName = $request->image->store($path, 'public');
-            $service->image = basename($imageName); // Save only the file name if that's your requirement
+            $path = "owners/{$guide->property->owner_id}/properties/{$guide->property_id}/guides/images";
+            $guide->image = $request->file('image')->store($path, 'public');
         }
 
-        $service->name = $request->name;
-        $service->description = $request->description;
-        $service->definition = $request->definition;
-        $service->property_id = $property->id; // Ensure this is the correct property ID
+        if ($request->hasFile('video_file')) {
+            if ($guide->video_file) {
+                Storage::disk('public')->delete($guide->video_file);
+            }
 
-        $service->save();
+            $path = "owners/{$guide->property->owner_id}/properties/{$guide->property_id}/guides/videos";
+            $guide->video_file = $request->file('video_file')->store($path, 'public');
+            
+        }
 
-        return redirect()->back()->with('success', 'Service updated successfully!');
+        $guide->save();
+     
+
+        return redirect()->route('property.show', $property)->with('status', 'Guide Updated successfully!');
     }
 
 

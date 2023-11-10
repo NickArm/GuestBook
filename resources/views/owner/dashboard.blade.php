@@ -312,7 +312,7 @@
             <div class="card card-flush h-xl-100">
                 <!--begin::Heading-->
                 <div class="card-header rounded bgi-no-repeat bgi-size-cover bgi-position-y-top bgi-position-x-center align-items-start h-250px"
-                    style="background-image:url({{ asset('media/svg/shapes/top-green.png') }}" data-theme="light">
+                    style="background-image:url({{ asset('storage/' . $property->main_image) }}" data-theme="light">
                     <!--begin::Title-->
                     <h3 class="card-title align-items-start flex-column text-white pt-15">
                         <span class="fw-bold fs-2x mb-3"><a href="{{ route('property.show', $property->id) }}"
