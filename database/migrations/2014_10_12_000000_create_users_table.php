@@ -23,6 +23,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->string('token')->unique();
             $table->string('role')->default('owner');
+            $table->string('owner_image')->nullable();
             $table->boolean('activate')->default(true);
             $table->timestamps();
         });

@@ -44,7 +44,7 @@
                         <!--begin: Pic-->
                         <div class="me-7 mb-4">
                             <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-                                <img src="{{ asset('media/avatars/300-1.jpg') }}" alt="image" />
+                                <img src="{{ asset('storage/' . $owner->owner_image) }}" alt="image" />
                                 <div
                                     class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
                                 </div>
@@ -271,32 +271,27 @@
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                                href="../../demo1/dist/pages/user-profile/projects.html">Projects</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Projects</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                                href="../../demo1/dist/pages/user-profile/campaigns.html">Campaigns</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Campaigns</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                                href="../../demo1/dist/pages/user-profile/documents.html">Documents</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Documents</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                                href="../../demo1/dist/pages/user-profile/followers.html">Followers</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Followers</a>
                         </li>
                         <!--end::Nav item-->
                         <!--begin::Nav item-->
                         <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5"
-                                href="../../demo1/dist/pages/user-profile/activity.html">Activity</a>
+                            <a class="nav-link text-active-primary ms-0 me-10 py-5" href="#">Activity</a>
                         </li>
                         <!--end::Nav item-->
                     </ul>

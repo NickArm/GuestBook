@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 
 class OwnerController extends Controller
-{
+{ 
     public function index()
     {
         $owner = Auth::user();
@@ -43,6 +43,7 @@ class OwnerController extends Controller
     }
     public function update(Request $request, $id)
     {
+        
         // Ensure the user doing the update is the owner or has the right to do so
         if (Auth::id() != $id && Auth::user()->role != 'owner') {
             abort(403);
@@ -50,9 +51,28 @@ class OwnerController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users,email,' . $id,
+            'owner_image' => 'nullable|file|mimes:jpeg,png,jpg',
             // Validate other fields if necessary
         ]);
         $user = User::findOrFail($id);
+        // Inside your update method
+        if ($request->hasFile('owner_image')) {
+            // First, we delete the old image if it exists
+            if ($user->owner_image) {
+                $deleteResult = Storage::disk('public')->delete($user->owner_image);
+            }
+
+            // Now, let's define the new path
+            $path = "owners/{$id}";
+
+            // Store the image and get the path
+            $filePath = $request->file('owner_image')->store($path, 'public');
+           
+            $user->owner_image = $filePath;
+        }
+
+
+       
         $user->update($validatedData);
         // Redirect to the owner's edit page, not the generic user edit
         return redirect()->route('owner.edit', $id)->with('success', 'Profile updated successfully');
