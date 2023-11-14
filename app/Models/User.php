@@ -18,6 +18,13 @@ class User extends Authenticatable
      return $this->hasMany(Property::class, 'owner_id');
     }
 
+    public function generateToken()
+    {
+        $this->api_token = str_random(60);
+        $this->save();
+
+        return $this->api_token;
+    }
 
 
     /**
