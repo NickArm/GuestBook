@@ -133,6 +133,12 @@
                                 <!--end::User-->
                                 <!--begin::Actions-->
                                 <div class="d-flex my-4">
+
+                                    <button type="button" class="btn btn-sm btn-light me-2" data-bs-toggle="modal"
+                                        data-bs-target="#accesstokenModal" onclick="handleModalOpen()">Access
+                                        Token</button>
+
+
                                     <a href="/owner/{{ $owner->id }}/edit" class="btn btn-sm btn-light me-2"
                                         id="kt_user_follow_button">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr012.svg-->
@@ -176,8 +182,8 @@
                                             <div class="d-flex align-items-center">
                                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr066.svg-->
                                                 <span class="svg-icon svg-icon-3 svg-icon-success me-2">
-                                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                        xmlns="http://www.w3.org/2000/svg">
+                                                    <svg width="24" height="24" viewBox="0 0 24 24"
+                                                        fill="none" xmlns="http://www.w3.org/2000/svg">
                                                         <rect opacity="0.5" x="13" y="6" width="13" height="2"
                                                             rx="1" transform="rotate(90 13 6)"
                                                             fill="currentColor" />
@@ -575,6 +581,31 @@
         </div>
     @endforeach
 
+    <!-- Access Token-->
+    <div class="modal fade" id="accesstokenModal" tabindex="-1" aria-labelledby="accesstokenModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="accesstokenModalLabel">Get Access Token</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="renewTokenForm" action="{{ route('owner.renewToken') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="access_token" class="form-label">Token</label>
+                            <input type="text" class="form-control" id="access_token" name="token"
+                                value="{{ $token }}" readonly>
+                        </div>
+                        <button type="button" class="btn btn-primary" onclick="renewToken()">Renew</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
     @if (session('success'))
         <div class="alert alert-success">
             {{ session('success') }}
@@ -593,6 +624,29 @@
     <script src="{{ asset('js/custom/utilities/modals/upgrade-plan.js') }}"></script>
     <script src="{{ asset('js/custom/utilities/modals/create-app.js') }}"></script>
     <script src="{{ asset('js/custom/utilities/modals/users-search.js') }}"></script>
+    <script>
+        function renewToken() {
+            $.ajax({
+                url: $('#renewTokenForm').attr('action'),
+                type: 'POST',
+                data: $('#renewTokenForm').serialize(),
+                success: function(response) {
+                    // Make sure 'response' contains the 'token' key
+                    if (response && response.token) {
+                        $('#access_token').val(response.token);
+                        alert("Token renewed successfully.");
+                    } else {
+                        alert("Token not found in response.");
+                    }
+                },
+                error: function(error) {
+                    console.error("Error renewing token: ", error);
+                    alert("Error renewing token.");
+                }
+            });
+        }
+    </script>
+
     <!--end::Custom Javascript-->
     <!--end::Javascript-->
 @endsection

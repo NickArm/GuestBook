@@ -56,6 +56,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner/dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
     Route::get('/owner/{id}/edit', [OwnerController::class, 'edit'] )->name('owner.edit');
     Route::put('/owner/{id}', [OwnerController::class, 'update'])->name('owner.update');
+    Route::post('/owner/renew-token', [OwnerController::class, 'renewToken'])->name('owner.renewToken');
 
     Route::get('/property/new', [PropertyController::class, 'index'])->name('property.index');
     Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');

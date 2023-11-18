@@ -12,7 +12,7 @@ use App\Models\LocalBusinessCategory;
 use App\Models\PropertyService;
 use Illuminate\Support\Facades\Storage;
 
-
+ 
 
 class PropertyController extends Controller
 {
@@ -137,4 +137,7 @@ class PropertyController extends Controller
     {
         return view('property.add');
     }
+
+
+
 }

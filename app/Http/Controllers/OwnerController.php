@@ -14,6 +14,8 @@ class OwnerController extends Controller
     {
         $owner = Auth::user();
         $properties = $owner->properties;
+       
+        $token = $owner->tokens()->first()->token ?? '';
         $servicesCount = $properties->sum(function ($property) {
             return $property->services->count();
         });
@@ -29,7 +31,7 @@ class OwnerController extends Controller
         $faqsCount = $properties->sum(function ($property) {
             return $property->faqs->count();
         });
-        return view('owner.dashboard', compact('owner', 'properties', 'servicesCount', 'guidesCount', 'businessCount', 'faqsCount'));
+        return view('owner.dashboard', compact('owner', 'properties', 'servicesCount', 'guidesCount', 'businessCount', 'faqsCount','token'));
     }
 
     public function edit($id)
@@ -77,6 +79,21 @@ class OwnerController extends Controller
         $user->update($validatedData);
         // Redirect to the owner's edit page, not the generic user edit
         return redirect()->route('owner.edit', $id)->with('success', 'Profile updated successfully');
+    }
+
+    public function renewToken(Request $request)
+    {
+        $user = Auth::user(); // Get the authenticated user
+
+        // Delete any existing token
+        $user->tokens()->delete();
+
+        // Create a new token
+        $tokenResult = $user->createToken('OwnerID');
+        $token = $tokenResult->accessToken;
+
+        // Make sure you're returning a string token, not an object
+        return response()->json(['token' => $token], 200);
     }
 
 
