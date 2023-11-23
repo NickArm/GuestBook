@@ -56,31 +56,27 @@ class PropertyServiceController extends Controller
         return view('property.service.edit', compact('property','service'));
     }
 
-    public function update(Request $request, PropertyService $service)
+    public function update(Request $request,  Property $property, PropertyService $service)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'property_service_name' => 'required|string|max:255',
+            'property_service_description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Image validation
             'definition' => 'required|json', // JSON validation for the dynamic form definition
         ]);
 
         if ($request->hasFile('image')) {
             if ($service->image) {
-                Storage::delete('images/' . $service->image);
+                Storage::disk('public')->delete($service->image);
             }
-
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->storeAs('images', $imageName);
-
-            $service->image = $imageName;
+            $path = "owners/{$service->property->owner_id}/properties/{$service->property_id}/services";
+            $service->image = $request->file('image')->store($path, 'public');
         }
+ 
 
-        $service->name = $request->name;
-        $service->description = $request->description;
+        $service->name = $request->property_service_name;
+        $service->description = $request->property_service_description;
         $service->definition = $request->definition;
-        $service->property_id = $request->property_id; // Update the property_id field 
-
         $service->save();
 
         return redirect()->back()->with('success', 'Service updated successfully!');

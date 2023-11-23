@@ -40,11 +40,6 @@ class Property extends Model
         return $this->belongsToMany(LocalBusiness::class);
     }
     
-    public function localBusinessCategories()
-    {
-        return $this->hasMany(LocalBusinessCategory::class);
-    }
-
     public function services()
     {
         return $this->hasMany(PropertyService::class);

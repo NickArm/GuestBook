@@ -140,7 +140,19 @@
                     let formBuilder; // Declare formBuilder outside of any function
 
                     $(document).ready(function() {
-                        formBuilder = $('.build-wrap').formBuilder(); // Initialize it here
+                        var options = {
+                            disableFields: [
+                                'autocomplete',
+                                'file',
+                                'button',
+                                'hidden',
+                                'starRating',
+                                'checkbox-group',
+                                'radio-group'
+
+                            ]
+                        };
+                        formBuilder = $('.build-wrap').formBuilder(options); // Initialize it here
                     });
 
                     document.getElementById("save_service").addEventListener("click", () => {

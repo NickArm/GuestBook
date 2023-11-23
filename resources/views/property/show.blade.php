@@ -59,7 +59,7 @@
                                     <div class="fs-5 fw-bold">Check In Time</div>
                                     <div class="fw-semibold fs-6 text-gray-400">{{ $property->check_in_time }}</div>
                                     <div class="fs-5 fw-bold">Check Out Time</div>
-                                    <div class="fw-semibold fs-6 text-gray-400">{{ $property->check_ouy_time }}
+                                    <div class="fw-semibold fs-6 text-gray-400">{{ $property->check_out_time }}
                                     </div>
                                 </div>
                                 <div class="col-md-4">

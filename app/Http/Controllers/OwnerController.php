@@ -24,14 +24,11 @@ class OwnerController extends Controller
             return $property->guides->count();
         });
     
-        $businessCount = $properties->sum(function ($property) {
-            return $property->localBusinesses->count();
-        });
-    
+
         $faqsCount = $properties->sum(function ($property) {
             return $property->faqs->count();
         });
-        return view('owner.dashboard', compact('owner', 'properties', 'servicesCount', 'guidesCount', 'businessCount', 'faqsCount','token'));
+        return view('owner.dashboard', compact('owner', 'properties', 'servicesCount', 'guidesCount', 'faqsCount','token'));
     }
 
     public function edit($id)

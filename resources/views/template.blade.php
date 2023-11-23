@@ -139,7 +139,6 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Custom Javascript(used for this page only)-->
     <script src="{{ asset('js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('js/custom/widgets.js') }}"></script>
-    <script src="{{ asset('js/custom/apps/chat/chat.js') }}"></script>
     <script src="{{ asset('js/custom/utilities/modals/upgrade-plan.js') }}"></script>
 
     <!--end::Custom Javascript-->

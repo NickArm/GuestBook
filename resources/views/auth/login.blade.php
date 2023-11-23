@@ -134,7 +134,7 @@ License: For each use you must have a valid license purchased only from above li
                             <div class="d-flex flex-stack flex-wrap gap-3 fs-base fw-semibold mb-8">
                                 <div></div>
                                 <!--begin::Link-->
-                                <a href="#" class="link-primary">Forgot Password ?</a>
+                                {{-- <a href="#" class="link-primary">Forgot Password ?</a> --}}
                                 <!--end::Link-->
                             </div>
                             <!--end::Wrapper-->
@@ -152,12 +152,26 @@ License: For each use you must have a valid license purchased only from above li
                             </div>
                             <!--end::Submit button-->
                             <!--begin::Sign up-->
-                            <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
+                            {{-- <div class="text-gray-500 text-center fw-semibold fs-6">Not a Member yet?
                                 <a href="#" class="link-primary">Sign up</a>
-                            </div>
+                            </div> --}}
                             <!--end::Sign up-->
                         </form>
                         <!--end::Form-->
+                        @if ($errors->has('email') || $errors->has('password'))
+                            <div class="alert alert-danger">
+                                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                                <ul>
+                                    @error('email')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                    @error('password')
+                                        <li>{{ $message }}</li>
+                                    @enderror
+                                </ul>
+                            </div>
+                        @endif
+
                     </div>
                     <!--end::Card body-->
                 </div>

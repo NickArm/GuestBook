@@ -10,4 +10,9 @@ class PropertyService extends Model
     use HasFactory;
     protected $fillable = ['name', 'property_id', 'description', 'image', 'definition'];
 
+    public function property()
+    {
+        return $this->belongsTo(Property::class);
+    }
+
 }
