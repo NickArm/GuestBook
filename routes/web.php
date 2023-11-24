@@ -57,11 +57,14 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::get('/owner/{id}/edit', [OwnerController::class, 'edit'] )->name('owner.edit');
     Route::put('/owner/{id}', [OwnerController::class, 'update'])->name('owner.update');
     Route::post('/owner/renew-token', [OwnerController::class, 'renewToken'])->name('owner.renewToken');
-
+ 
     Route::get('/property/new', [PropertyController::class, 'index'])->name('property.index');
     Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
-    Route::get('/property/{id}', [PropertyController::class, 'show'])->name('property.show');
+    //Route::get('/property/{id}', [PropertyController::class, 'show'])->name('property.show');
     Route::get('/property/{id}/edit', [PropertyController::class, 'edit'])->name('property.edit');
+    Route::get('/property/{id}/{tab?}', [PropertyController::class, 'show'])->name('property.show');
+
+
     Route::put('/property/{id}', [PropertyController::class, 'update'])->name('property.update');
     // Property's Guides Routes
     Route::get('property/{property}/guide/create', [PropertyGuideController::class, 'create'])->name('guide.create');

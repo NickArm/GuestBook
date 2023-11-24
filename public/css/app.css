@@ -1,4 +1,5 @@
-#myTabContent .guide .guide-image {
-    height: 200px !important;
+#myTabContent .guide .guide-image,
+#myTabContent .service .service-image {
+    height: 250px !important;
     object-fit: cover;
 }

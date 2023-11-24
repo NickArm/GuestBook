@@ -58,10 +58,8 @@ class PropertyController extends Controller
     public function edit($id)
     {
         $property = Property::findOrFail($id);
-
         // Load countries data from the JSON file
         $countriesJson = file_get_contents(public_path('countries.json'));
-
         $countries = json_decode($countriesJson, true);
         return view('property.edit', compact('property', 'countries'));
     }
@@ -123,13 +121,35 @@ class PropertyController extends Controller
 
 
 
-    public function show($id)
+    public function show($id, $tab = null)
     {
         $property = Property::with(['guides', 'localBusinesses', 'services'])->find($id);
         $faq_categories = FAQCategory::all();
         $faqs = FAQ::where('property_id', $property->id)->get();
         $local_businesses = $property->localBusinesses;
-        return view('property.show', compact('property', 'faq_categories','faqs','local_businesses'));
+        
+
+        $tabContent = '';
+        switch ($tab) {
+            case 'guides':
+                $tabContent = 'property.guide.show';
+                break;
+            case 'services':
+                $tabContent = 'property.service.show';
+                break;
+            case 'faqs':
+                $tabContent = 'property.faq.show';
+                break;
+            case 'local-recommendations':
+                $tabContent = 'property.local_business.show';
+                break;
+            default:
+                // Define a default tab content or leave as an empty string
+                break;
+        }
+
+
+        return view('property.show', compact('property', 'faq_categories','faqs','local_businesses', 'tabContent'));
     }
 
 

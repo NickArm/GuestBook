@@ -34,10 +34,6 @@
                                 <!--end::User-->
                                 <!--begin::Actions-->
                                 <div class="d-flex my-4">
-
-
-
-
                                     <!--begin::Indicator label-->
                                     <a href="/property/{{ $property->id }}/edit" class="btn btn-sm btn-primary me-2">Edit
                                         the
@@ -54,6 +50,9 @@
                                     <div class="fs-5 fw-bold">Address</div>
                                     <div class="fw-semibold fs-6 text-gray-400">
                                         {{ $property->address }}, {{ $property->country }}</div>
+                                    <div class="fs-5 fw-bold">Contact Number</div>
+                                    <div class="fw-semibold fs-6 text-gray-400">
+                                        {{ $property->phone }}</div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="fs-5 fw-bold">Check In Time</div>
@@ -71,241 +70,72 @@
                         <!--end::Info-->
                     </div>
                     <!--end::Details-->
-                    <!--begin::Navs-->
-                    <ul class="nav nav-tabs nav-line-tabs nav-stretch  nav-line-tabs-2x border-transparent fs-5 fw-bold">
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active" data-toggle="tab"
-                                href="#kt_tab_pane_1">Property Guides</a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" data-toggle="tab"
-                                href="#kt_tab_pane_2">FAQs</a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" data-toggle="tab"
-                                href="#kt_tab_pane_3">Local Recommendations</a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5" data-toggle="tab"
-                                href="#kt_tab_pane_4">Property Services</a>
-                        </li>
-                        <!--end::Nav item-->
-                    </ul>
-                    <!--begin::Navs-->
-                    <div class="tab-content mt-5" id="myTabContent">
-                        <div class="tab-pane fade show active" id="kt_tab_pane_1" role="tabpanel"
-                            aria-labelledby="kt_tab_pane_1">
-                            <div class="mb-3">
-                                <a href="{{ route('guide.create', ['property' => $property->id]) }}"
-                                    class="btn btn-primary">Create Guide</a>
-                            </div>
-                            <div class="row g-10">
-                                @foreach ($property->guides as $guide)
-                                    <div class="guide col-md-4">
-                                        <div class="card-xl-stretch me-md-6">
-                                            <div class="m-0">
-                                                <div
-                                                    class="fs-4 text-gray-900 fw-bold text-hover-primary text-gray-900 lh-base">
-                                                    {{ $guide->title }}</div>
-                                                <div class="fw-semibold fs-5 text-gray-600 text-gray-900 my-4">Category ID:
-                                                    {{ $guide->category_id }}</div>
 
-                                                @if ($guide->video_url)
-                                                    <div class="fw-semibold fs-5 text-gray-600 text-gray-900 my-4">Video
-                                                        URL:
-                                                        {{ $guide->video_url }}</div>
-                                                @endif
-                                                <div class="m-0">
-                                                    <img src="{{ Storage::url($guide->image) }}" alt=""
-                                                        class="guide-image" style="width: 100%;">
-
-                                                </div>
-                                                @if ($guide->video_file)
-                                                    <video width="320" height="240" controls>
-                                                        <source src="{{ Storage::url($guide->video_file) }}"
-                                                            type="video/mp4">
-                                                        Your browser does not support the video tag.
-                                                    </video>
-                                                @endif
-
-                                                <div class="fw-semibold fs-5 text-gray-600 text-gray-900 my-4">
-                                                    <p>{{ $guide->content }}</p>
-                                                </div>
-
-                                                <a href="{{ route('guide.edit', [$property, $guide]) }}"
-                                                    class="btn btn-warning">Edit</a>
-
-                                                <!-- Delete Guide Button/Form -->
-                                                <form action="{{ route('property.guide.destroy', [$property, $guide]) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this guide?')"
-                                                    style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Remove</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <div class="tab-pane fade" id="kt_tab_pane_2" role="tabpanel" aria-labelledby="kt_tab_pane_2">
-                            <div class="mb-3">
-                                <button class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#addFAQCategoryModal">Add
-                                    FAQ Category</button>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#addFAQModal" onclick="handleModalOpen()">Add FAQ</button>
-                            </div>
-                            <h3>FAQs</h3>
-                            @if ($faqs->isEmpty())
-                                <p>No FAQs available for this property.</p>
-                            @else
-                                <div class="m-0">
-                                    <?php $i = 0; ?>
-                                    @foreach ($faqs as $faq)
-                                        <?php $i++; ?>
-                                        <div class="d-flex align-items-center collapsible py-3 toggle mb-0 collapsed"
-                                            data-bs-toggle="collapse" data-bs-target="#kt_job_4_{{ $i }}"
-                                            aria-expanded="false">
-                                            <!--begin::Icon-->
-                                            <div class="btn btn-sm btn-icon mw-20px btn-active-color-primary me-5">
-                                                <i class="ki-duotone ki-minus-square toggle-on text-primary fs-1"><span
-                                                        class="path1"></span><span class="path2"></span></i>
-                                                <i class="ki-duotone ki-plus-square toggle-off fs-1"><span
-                                                        class="path1"></span><span class="path2"></span><span
-                                                        class="path3"></span></i>
-                                            </div>
-                                            <!--end::Icon-->
-
-                                            <!--begin::Title-->
-                                            <h4 class="text-gray-700 fw-bold cursor-pointer mb-0">
-                                                {{ $faq->question }}
-                                            </h4>
-                                            <!--end::Title-->
-                                        </div>
-                                        <!--end::Heading-->
-                                        <div id="kt_job_4_{{ $i }}" class="fs-6 ms-1 collapse"
-                                            style="">
-                                            <!--begin::Text-->
-                                            <div class="mb-4 text-gray-600 fw-semibold fs-6 ps-10">
-                                                {{ $faq->answer }}
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            @endif
-
-
-                        </div>
-                        <div class="tab-pane fade" id="kt_tab_pane_3" role="tabpanel" aria-labelledby="kt_tab_pane_3">
-                            <div class="mb-3">
-                                <a href="{{ route('local-business.create', ['property' => $property->id]) }}"
-                                    class="btn btn-primary">Add Local Business</a>
-                            </div>
-                            <div class="row g-10">
-
-
-
-                                @foreach ($local_businesses as $business)
-                                    <div class="guide col-md-4">
-                                        <div class="card-xl-stretch me-md-6">
-                                            <div class="m-0">
-                                                <div
-                                                    class="fs-4 text-gray-900 fw-bold text-hover-primary text-gray-900 lh-base">
-                                                    {{ $business->title }}</div>
-                                                <div class="fw-semibold fs-5 text-gray-600 text-gray-900 my-4">Category ID:
-                                                    {{ $business->category_id }}</div>
-                                                <div class="fw-semibold fs-5 text-gray-600 text-gray-900 my-4">Video URL:
-                                                    {{ $business->google_map }}</div>
-                                            </div>
-
-                                            @if ($business->image)
-                                                <div class="m-0">
-                                                    <img src="{{ Storage::url($business->image) }}" alt=""
-                                                        class="guide-image" style="width: 100%;">
-                                                </div>
-                                            @endif
-
-
-
-                                            <div class="fw-semibold fs-5 text-gray-600 text-gray-900 my-4">
-                                                <p>Content: {{ $business->description }}</p>
-                                            </div>
-
-                                            <a href="{{ route('local-business.edit', [$property, $business]) }}"
-                                                class="btn btn-warning">Edit</a>
-
-                                            <!-- Delete Guide Button/Form -->
-                                            <form action="{{ route('local-business.destroy', [$property, $business]) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('Are you sure you want to delete this business?')"
-                                                style="display: inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">Remove</button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="kt_tab_pane_4" role="tabpanel" aria-labelledby="kt_tab_pane_4">
-                            <div class="mb-3">
-                                <a href="{{ route('service.create', ['property' => $property->id]) }}"
-                                    class="btn btn-primary">Create Service</a>
-                            </div>
-                            <div class="row g-10">
-                                @foreach ($property->services as $service)
-                                    <div class="service col-md-4">
-                                        <div class="card-xl-stretch me-md-6">
-                                            <div class="m-0">
-                                                <div
-                                                    class="fs-4 text-gray-900 fw-bold text-hover-primary text-gray-900 lh-base">
-                                                    {{ $service->name }}</div>
-
-                                                <!-- Display other service attributes similarly. Update below lines according to the attributes of service -->
-
-                                                <img src="{{ Storage::url($service->image) }}" alt=""
-                                                    class="service-image" style="width: 100%;">
-                                                <div class="fw-semibold fs-5 text-gray-600 text-gray-900 my-4">
-                                                    <p>Description: {{ $service->description }}</p>
-                                                </div>
-
-                                                <a href="{{ route('service.edit', [$property, $service]) }}"
-                                                    class="btn btn-warning">Edit</a>
-
-                                                <!-- Delete Service Button/Form -->
-                                                <form
-                                                    action="{{ route('property.service.destroy', [$property, $service]) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('Are you sure you want to delete this service?')"
-                                                    style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Remove</button>
-                                                </form>
-
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="card mb-5 mb-xl-10">
+        <div class="card-body pt-9">
+            <!--begin::Navs-->
+            <ul class="nav nav-tabs nav-line-tabs nav-stretch nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                <!--begin::Nav item for Property Guides-->
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/guides') ? 'active' : '' }}"
+                        href="{{ route('property.show', ['id' => $property->id, 'tab' => 'guides']) }}">Property
+                        Guides</a>
+                </li>
+                <!--end::Nav item-->
+
+                <!--begin::Nav item for Property Services-->
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/services') ? 'active' : '' }}"
+                        href="{{ route('property.show', ['id' => $property->id, 'tab' => 'services']) }}">Property
+                        Services</a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item for Property Services-->
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/services') ? 'active' : '' }}"
+                        href="{{ route('property.show', ['id' => $property->id, 'tab' => 'services']) }}">Property
+                        Rules</a>
+                </li>
+                <!--end::Nav item-->
+                <!--begin::Nav item for FAQs-->
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/faqs') ? 'active' : '' }}"
+                        href="{{ route('property.show', ['id' => $property->id, 'tab' => 'faqs']) }}">FAQs</a>
+                </li>
+                <!--end::Nav item-->
+
+                <!--begin::Nav item for Local Recommendations-->
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/local-recommendations') ? 'active' : '' }}"
+                        href="{{ route('property.show', ['id' => $property->id, 'tab' => 'local-recommendations']) }}">Local
+                        Recommendations</a>
+                </li>
+                <!--end::Nav item-->
+
+
+            </ul>
+            <!--begin::Navs-->
+            <div class="tab-content mt-5" id="myTabContent">
+                {{-- @include('property.guide.show')
+                        @include('property.faq.show')
+                        @include('property.local_business.show')
+                        @include('property.service.show') --}}
+
+                <div class="tab-content mt-5" id="myTabContent">
+                    @if (!empty($tabContent))
+                        @include($tabContent)
+                    @else
+                        {{-- Include some default content or nothing --}}
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
     </div>
     </div>
 
