@@ -221,6 +221,7 @@
     <script src="{{ asset('js/custom/apps/user-management/users/list/table.js') }}"></script>
     <script src="{{ asset('js/custom/apps/user-management/users/list/export-users.js') }}"></script>
     <script src="{{ asset('js/custom/apps/user-management/users/list/add.js') }}"></script>
+    <script src="{{ asset('plugins/custom/fslightbox/fslightbox.bundle.js') }}"></script>
     <script src="{{ asset('js/widgets.bundle.js') }}"></script>
     <script src="{{ asset('js/custom/widgets.js') }}"></script>
     <script src="{{ asset('js/custom/apps/chat/chat.js') }}"></script>
