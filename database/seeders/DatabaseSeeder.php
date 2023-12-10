@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             LocalBusinessCategorySeeder::class,
+            PropertyGuideCategorySeeder::class,
+            FaqCategorySeeder::class,
+            RoleAndPermissionSeeder::class,
             // ... other seeders
         ]);
     }

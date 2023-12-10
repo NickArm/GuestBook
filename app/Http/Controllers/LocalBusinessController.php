@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Property;
 use App\Models\LocalBusiness;
 use App\Models\LocalBusinessCategory;
+use App\Models\Property;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class LocalBusinessController extends Controller
 {
-    public function create(Property $property) {
+    public function create(Property $property)
+    {
         $categories = LocalBusinessCategory::all();
+
         return view('property.local_business.create', compact('property', 'categories'));
     }
 
-    public function store(Request $request, Property $property) {
+    public function store(Request $request, Property $property)
+    {
         $data = $request->validate([
             'category_id' => 'required|exists:local_business_categories,id',
             'title' => 'required|string',
@@ -23,7 +26,7 @@ class LocalBusinessController extends Controller
             'image' => 'nullable|file|mimes:jpeg,png,jpg,gif',
             'google_map' => 'nullable|string',
             'directions_url' => 'nullable|string',
-            'external_url' => 'nullable|string'
+            'external_url' => 'nullable|string',
         ]);
 
         $ownerId = $property->owner->id; // Assuming the property model has a relationship to its owner
@@ -35,12 +38,13 @@ class LocalBusinessController extends Controller
         $data['property_id'] = $property->id;
         $property->localBusinesses()->create($data); // Assuming you have a relation named localBusinesses in the Property model
 
-        return redirect()->route('property.show', $property)->with('success', 'Local business added successfully!');
+        return redirect('/property/'.$property->id.'/local-recommendations')->with('success', 'Local business Created successfully!');
     }
 
     public function edit(Property $property, LocalBusiness $localBusiness)
     {
         $categories = LocalBusinessCategory::all();
+
         return view('property.local_business.edit', compact('property', 'localBusiness', 'categories'));
     }
 
@@ -53,7 +57,7 @@ class LocalBusinessController extends Controller
             'image' => 'nullable|file|mimes:jpeg,png,jpg,gif',
             'google_map' => 'nullable|string',
             'directions_url' => 'nullable|string',
-            'external_url' => 'nullable|string'
+            'external_url' => 'nullable|string',
         ]);
 
         $ownerId = $property->owner->id;
@@ -68,7 +72,7 @@ class LocalBusinessController extends Controller
 
         $localBusiness->update($data);
 
-        return redirect()->route('property.show', $property->id)->with('success', 'Local business updated successfully!');
+        return redirect('/property/'.$property->id.'/local-recommendations')->with('success', 'Local business updated successfully!');
     }
 
     public function destroy(Property $property, LocalBusiness $localBusiness)

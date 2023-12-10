@@ -7,25 +7,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
-
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     public function properties()
     {
-     return $this->hasMany(Property::class, 'owner_id');
+        return $this->hasMany(Property::class, 'owner_id');
     }
 
-    public function generateToken()
-    {
-        $this->api_token = str_random(60);
-        $this->save();
+    // public function generateToken()
+    // {
+    //     $this->api_token = str_random(60);
+    //     $this->save();
 
-        return $this->api_token;
-    }
-
+    //     return $this->api_token;
+    // }
 
     /**
      * The attributes that are mass assignable.

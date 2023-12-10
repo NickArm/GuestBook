@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('services', function (Blueprint $table) {
+        Schema::create('property_services', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('property_id'); // foreign key to properties
             $table->string('title');

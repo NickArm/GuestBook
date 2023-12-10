@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('property_guides', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('property_id');
+            $table->unsignedBigInteger('category_id');
             $table->string('title');
             $table->text('content')->nullable(); // Will use text editor in the future
             $table->string('video_url')->nullable(); // Optional if they want to add YouTube link
@@ -25,6 +26,7 @@ return new class extends Migration
 
             // Foreign key constraints
             $table->foreign('property_id')->references('id')->on('properties')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('property_guide_categories')->onDelete('cascade');
         });
     }
 

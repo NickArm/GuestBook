@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Property extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'property_title',
         'email',
@@ -19,7 +20,7 @@ class Property extends Model
         'check_out_time',
         'property_rules',
     ];
-    
+
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
@@ -37,13 +38,11 @@ class Property extends Model
 
     public function localBusinesses()
     {
-        return $this->belongsToMany(LocalBusiness::class);
+        return $this->hasMany(LocalBusiness::class);
     }
-    
+
     public function services()
     {
         return $this->hasMany(PropertyService::class);
     }
-
-
 }

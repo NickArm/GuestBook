@@ -44,10 +44,11 @@
                                 <!--begin: Pic-->
                                 <div class="me-7 mb-4">
                                     <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+                                        <?php if ($owner->owner_image) { ?>
                                         <img src="{{ asset('storage/' . $owner->owner_image) }}" alt="image" />
-                                        <div
-                                            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
-                                        </div>
+                                        <?php } else { ?>
+                                        <img src="{{ asset('media/misc/no_image.jpg') }}" alt="image" />
+                                        <?php }?>
                                     </div>
                                 </div>
                                 <!--end::Pic-->
@@ -148,8 +149,7 @@
                                                         class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                 <!--end::Indicator progress-->
                                             </a>
-                                            <a href="/property/new" class="btn btn-sm btn-primary me-2"
-                                                data-bs-toggle="modal" data-bs-target="#kt_modal_offer_a_deal">Add New
+                                            <a href="/property/new" class="btn btn-sm btn-primary me-2">Add New
                                                 Property</a>
 
                                         </div>

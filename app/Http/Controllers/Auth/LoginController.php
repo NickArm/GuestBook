@@ -1,12 +1,11 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -45,23 +44,21 @@ class LoginController extends Controller
         // Check user role based on a column in the users table
         $userRole = auth()->user()->role; // Assuming you have a 'role' column
 
-        if ($userRole === 'admin') {
+        if (auth()->user()->hasRole('admin')) {
             return '/admin/dashboard';
-        } elseif ($userRole === 'owner') {
+        } elseif (auth()->user()->hasRole('owner')) {
             return '/owner/dashboard';
         } else {
             return '/login'; // default route for other users
         }
     }
 
-
     public function logout(Request $request)
     {
         $this->guard()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
+
         return redirect('/login');
     }
-
-
 }

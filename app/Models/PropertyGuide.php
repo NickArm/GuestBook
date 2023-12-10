@@ -7,10 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class PropertyGuide extends Model
 {
+    protected $fillable = ['title', 'category_id', 'video_url', 'video_file', 'content', 'image'];
 
-    protected $fillable = ['title', 'category_id', 'video_url', 'video_file', 'content','image'];
     use HasFactory;
-   
 
     public function property()
     {
@@ -19,7 +18,6 @@ class PropertyGuide extends Model
 
     public function category()
     {
-     return $this->belongsTo(GuideCategory::class, 'category_id');
+        return $this->belongsTo(PropertyGuideCategory::class, 'category_id');
     }
-
 }

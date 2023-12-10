@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('guide_categories', function (Blueprint $table) {
+        Schema::create('property_guide_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
             $table->timestamps();

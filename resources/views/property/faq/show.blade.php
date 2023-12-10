@@ -1,6 +1,4 @@
 <div class="mb-3">
-    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFAQCategoryModal">Add
-        FAQ Category</button>
     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addFAQModal"
         onclick="handleModalOpen()">Add FAQ</button>
 </div>

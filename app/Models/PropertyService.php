@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PropertyService extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'property_id', 'description', 'image', 'definition'];
+
+    protected $fillable = ['title', 'property_id', 'description', 'image', 'form_definition'];
 
     public function property()
     {
         return $this->belongsTo(Property::class);
     }
-
 }

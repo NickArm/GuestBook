@@ -430,7 +430,6 @@
                         <th class="min-w-125px">Name</th>
                         <th class="min-w-125px">Email</th>
                         <th class="min-w-125px">Account ID</th>
-                        <th class="min-w-125px">Token</th>
                         <th class="min-w-125px">Actions</th>
                     </tr>
                 </thead>
@@ -446,7 +445,6 @@
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->account_id }}</td>
-                            <td>{{ substr($user->token, 0, 8) }}...</td>
 
                             <td class="text-end">
                                 <a href="#" class="btn btn-light btn-active-light-primary btn-sm"

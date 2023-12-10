@@ -41,7 +41,7 @@
                         <!--end::Label-->
                         <!--begin::Input-->
                         <input type="text" class="form-control form-control-solid" name="property_service_name"
-                            placeholder="Service Name" value="{{ $service->name }}">
+                            placeholder="Service Name" value="{{ $service->title }}">
                         <!--end::Input-->
                     </div>
                     <!--end::Input group-->
@@ -136,7 +136,7 @@
             <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" defer></script>
             <script>
                 let formBuilder; // Declare formBuilder outside of any function
-                var formData = {!! $service->definition !!};
+                var formData = {!! $service->form_definition !!};
                 $(document).ready(function() {
                     var options = {
                         disableFields: [

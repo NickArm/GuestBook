@@ -183,6 +183,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
         Laravel\Sanctum\SanctumServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...

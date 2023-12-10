@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PropertyService;
 use App\Models\Property;
+use App\Models\PropertyService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class PropertyServiceController extends Controller
@@ -18,10 +17,8 @@ class PropertyServiceController extends Controller
         ]);
     }
 
-
     public function store(Request $request, Property $property)
     {
-
         $request->validate([
             'property_service_name' => 'required|string|max:255',
             'property_service_description' => 'nullable|string',
@@ -29,34 +26,35 @@ class PropertyServiceController extends Controller
             'definition' => 'required|json', // JSON validation for the dynamic form definition
         ]);
 
+        $imagePath = null;
         if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->storeAs('images', $imageName);  // Store image in the "images" directory
+            $path = "owners/{$property->owner_id}/properties/{$property->id}/services";
+            $imagePath = $request->file('image')->store($path, 'public');
         }
 
         PropertyService::create([
-            'name' => $request->property_service_name,
+            'title' => $request->property_service_name,
             'description' => $request->property_service_description,
-            'image' => isset($imageName) ? $imageName : null,
-            'definition' => $request->definition,
-            'property_id' => $property->id // linking the service to the property
+            'image' => isset($imagePath) ? $imagePath : null,
+            'form_definition' => $request->definition,
+            'property_id' => $property->id, // linking the service to the property
         ]);
 
-        return redirect()->route('service.create', ['property' => $property->id])->with('success', 'Service created successfully!');
+        return redirect('/property/'.$property->id.'/services')->with('success', 'Service created successfully!');
     }
 
     public function edit(Property $property, PropertyService $service) // Laravel's route model binding will auto fetch service based on ID
     {
         // Check if service exists
-        if (!$service) {
+        if (! $service) {
             return redirect()->back()->with('error', 'No service found to edit.');
         }
 
         // Pass the service to the edit view
-        return view('property.service.edit', compact('property','service'));
+        return view('property.service.edit', compact('property', 'service'));
     }
 
-    public function update(Request $request,  Property $property, PropertyService $service)
+    public function update(Request $request, Property $property, PropertyService $service)
     {
         $request->validate([
             'property_service_name' => 'required|string|max:255',
@@ -72,20 +70,19 @@ class PropertyServiceController extends Controller
             $path = "owners/{$service->property->owner_id}/properties/{$service->property_id}/services";
             $service->image = $request->file('image')->store($path, 'public');
         }
- 
 
-        $service->name = $request->property_service_name;
+        $service->title = $request->property_service_name;
         $service->description = $request->property_service_description;
-        $service->definition = $request->definition;
+        $service->form_definition = $request->definition;
         $service->save();
 
-        return redirect()->back()->with('success', 'Service updated successfully!');
+        return redirect('/property/'.$service->property_id.'/services')->with('success', 'Service Updated successfully!');
     }
 
     public function destroy(Property $property, PropertyService $service)
     {
         // Check if the service belongs to the property
-        if($service->property_id !== $property->id) {
+        if ($service->property_id !== $property->id) {
             return redirect()->back()->withErrors(['message' => 'Invalid service for this property.']);
         }
         // Delete associated image if it exists
@@ -93,6 +90,7 @@ class PropertyServiceController extends Controller
             Storage::delete($service->image);
         }
         $service->delete();
+
         return redirect()->route('property.show', $property)->with('status', 'Service deleted successfully!');
     }
 

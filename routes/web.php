@@ -1,15 +1,16 @@
 <?php
+
 Auth::routes();
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\OwnerController;
-use App\Http\Controllers\PropertyController;
-use App\Http\Controllers\PropertyGuideController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FAQCategoryController;
 use App\Http\Controllers\FAQController;
 use App\Http\Controllers\LocalBusinessController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\PropertyController;
+use App\Http\Controllers\PropertyGuideController;
 use App\Http\Controllers\PropertyServiceController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,17 +26,17 @@ use App\Http\Controllers\PropertyServiceController;
 // If a user is not logged in, redirect to login page
 Route::get('/', function () {
     // If the user is not logged in, redirect to login
-    if (!auth()->check()) {
+    if (! auth()->check()) {
         return redirect('/login');
     }
-    
+
     // If the user is logged in and has the role 'admin', redirect to admin dashboard
-    if (auth()->user()->role === 'admin') {
+    if (auth()->user()->hasRole('admin')) {
         return redirect('/admin/dashboard');
     }
-    
+
     // If the user is logged in and has the role 'owner', redirect to owner dashboard
-    if (auth()->user()->role === 'owner') {
+    if (auth()->user()->hasRole('owner')) {
         return redirect('/owner/dashboard');
     }
 
@@ -44,26 +45,23 @@ Route::get('/', function () {
     return redirect('/login');
 });
 
-
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['role:admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'index']);
     Route::post('/admin/add-user', [AdminController::class, 'addUser'])->name('admin.addUser');
-
 });
 
-Route::middleware(['auth', 'role:owner'])->group(function () {
+Route::middleware(['role:owner'])->group(function () {
     // Owner's Routes
     Route::get('/owner/dashboard', [OwnerController::class, 'index'])->name('owner.dashboard');
-    Route::get('/owner/{id}/edit', [OwnerController::class, 'edit'] )->name('owner.edit');
+    Route::get('/owner/{id}/edit', [OwnerController::class, 'edit'])->name('owner.edit');
     Route::put('/owner/{id}', [OwnerController::class, 'update'])->name('owner.update');
     Route::post('/owner/renew-token', [OwnerController::class, 'renewToken'])->name('owner.renewToken');
- 
+
     Route::get('/property/new', [PropertyController::class, 'index'])->name('property.index');
     Route::post('/property/store', [PropertyController::class, 'store'])->name('property.store');
     //Route::get('/property/{id}', [PropertyController::class, 'show'])->name('property.show');
     Route::get('/property/{id}/edit', [PropertyController::class, 'edit'])->name('property.edit');
     Route::get('/property/{id}/{tab?}', [PropertyController::class, 'show'])->name('property.show');
-
 
     Route::put('/property/{id}', [PropertyController::class, 'update'])->name('property.update');
     // Property's Guides Routes
@@ -71,7 +69,7 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::post('property/{property}/guide', [PropertyGuideController::class, 'store'])->name('guide.store');
     Route::get('property/{property}/guide/{guide}/edit', [PropertyGuideController::class, 'edit'])->name('guide.edit');
     Route::put('property/{property}/guide/{guide}', [PropertyGuideController::class, 'update'])->name('guide.update');
-    Route::delete('property/{property}/guide/{guide}',  [PropertyGuideController::class, 'destroy'])->name('property.guide.destroy');
+    Route::delete('property/{property}/guide/{guide}', [PropertyGuideController::class, 'destroy'])->name('property.guide.destroy');
     // Property's FAQs Routes
     Route::post('/faq-category/store', [FAQCategoryController::class, 'store'])->name('faq_category.store');
     Route::post('/faq/store', [FAQController::class, 'store'])->name('faq.store');
@@ -88,13 +86,8 @@ Route::middleware(['auth', 'role:owner'])->group(function () {
     Route::put('service/{service}', [PropertyServiceController::class, 'update'])->name('service.update');
     Route::delete('property/{property}/service/{service}', [PropertyServiceController::class, 'destroy'])->name('property.service.destroy');
 
-
     /*for testing*/
     Route::get('property/{property}/service/{service}', [PropertyServiceController::class, 'show'])->name('service.show');
-
-
 });
-
-
 
 Route::post('logout', [LoginController::class, 'logout'])->name('logout');

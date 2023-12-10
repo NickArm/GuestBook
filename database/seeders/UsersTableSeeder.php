@@ -19,7 +19,13 @@ class UsersTableSeeder extends Seeder
             'account_id' => $this->generateAccountId(),
             'name' => 'armenisnick',
             'email' => 'armenisnick@gmail.com',
-            'password' => bcrypt('n@261186'),  // Using bcrypt to hash the password
+            'password' => bcrypt('261186'),  // Using bcrypt to hash the password
+            'activate' => true,
+        ], [
+            'account_id' => $this->generateAccountId(),
+            'name' => 'administrator',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('261186'),  // Using bcrypt to hash the password
             'activate' => true,
         ]);
     }

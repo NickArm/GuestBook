@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('owner');
             $table->string('owner_image')->nullable();
             $table->boolean('activate')->default(true);
             $table->timestamps();
