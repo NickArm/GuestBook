@@ -64,6 +64,7 @@
                     <!--end::Body-->
 
                 </div>
+            </div>
         @endforeach
     @endif
 </div>
