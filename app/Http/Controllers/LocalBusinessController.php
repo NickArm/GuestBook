@@ -67,7 +67,7 @@ class LocalBusinessController extends Controller
                 Storage::disk('public')->delete(str_replace('public/', '', $localBusiness->image));
             }
             $path = "owners/{$ownerId}/properties/{$property->id}/businesses";
-            $data['image'] = $request->file('image')->storePubliclyAs($path);
+            $data['image'] = $request->file('image')->store($path);
         }
 
         $localBusiness->update($data);
