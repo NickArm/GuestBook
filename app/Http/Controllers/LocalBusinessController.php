@@ -33,7 +33,7 @@ class LocalBusinessController extends Controller
 
         if ($request->hasFile('image')) {
             $path = "owners/{$ownerId}/properties/{$property->id}/businesses";
-            $data['image'] = $request->file('image')->store($path);
+            $data['image'] = $request->file('image')->store($path, 'public');
         }
         $data['property_id'] = $property->id;
         $property->localBusinesses()->create($data); // Assuming you have a relation named localBusinesses in the Property model
@@ -67,7 +67,7 @@ class LocalBusinessController extends Controller
                 Storage::disk('public')->delete(str_replace('public/', '', $localBusiness->image));
             }
             $path = "owners/{$ownerId}/properties/{$property->id}/businesses";
-            $data['image'] = $request->file('image')->store($path);
+            $data['image'] = $request->file('image')->store($path, 'public');
         }
 
         $localBusiness->update($data);
