@@ -50,19 +50,16 @@
                             class="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base">
                             {{ $guide->title }}</a>
                         <!--end::Title-->
+                        <div class="fs-7 fw-semibold text-gray-400">Category:
+                        <span class="fs-7 fw-semibold text-gray-400">{{ $guide->category->name }}</span></div>
                         <!--begin::Text-->
                         <div class="fw-semibold fs-5 text-gray-600 text-dark mt-3">{{ $guide->content }}</div>
                         <!--end::Text-->
                         <!--begin::Text-->
                         <div class="fs-6 fw-bold mt-5 d-flex flex-stack">
-                            <!--begin::Label-->
-                            <span class="badge border border-dashed fs-2 fw-bold text-dark p-2">
-                                <span class="fs-6 fw-semibold text-gray-400">{{ $guide->category->name }}</span>
-                                <!--end::Label-->
                                 <!--begin::Action-->
                                 <a href="{{ route('guide.edit', [$property, $guide]) }}"
                                     class="btn btn-warning">Edit</a>
-
                                 <!-- Delete Guide Button/Form -->
                                 <form action="{{ route('property.guide.destroy', [$property, $guide]) }}"
                                     method="POST"

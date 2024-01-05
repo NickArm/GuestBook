@@ -1,3 +1,18 @@
+body {
+    background-image: none!important;
+    background: floralwhite;
+  }
+
+  #login_logo{max-width: 630px;}
+  .app-blank {
+    background-color: #fffaf0;
+  }
+
+  [data-kt-app-layout="dark-sidebar"] .app-sidebar .app-sidebar-logo {
+    border-bottom: 1px dashed #393945;
+    background-color: #fffaf0;
+  }
+
 #myTabContent .guide .guide-image,
 #myTabContent .service .service-image {
     height: 250px !important;

@@ -35,16 +35,12 @@
                         <a href="{{ route('local-business.edit', [$property, $business]) }}"
                             class="fs-4 text-dark fw-bold text-hover-primary text-dark lh-base">{{ $business->title }}</a>
                         <!--end::Title-->
+                        <div class="fs-8 fw-semibold text-gray-400"><span class="fs-86 fw-semibold text-gray-400">{{ $business->category->name }}</span></div>
                         <!--begin::Text-->
                         <div class="fw-semibold fs-5 text-gray-600 text-dark mt-3">{{ $business->description }}</div>
                         <!--end::Text-->
                         <!--begin::Text-->
                         <div class="fs-6 fw-bold mt-5 d-flex flex-stack">
-                            <!--begin::Label-->
-                            <span class="badge border border-dashed fs-2 fw-bold text-dark p-2">
-                                <span
-                                    class="fs-6 fw-semibold text-gray-400">{{ $business->category->name }}</span></span>
-                            <!--end::Label-->
                             <!--begin::Action-->
                             <a href="{{ route('local-business.edit', [$property, $business]) }}"
                                 class="btn btn-warning">Edit</a>

@@ -37,6 +37,7 @@ License: For each use you must have a valid license purchased only from above li
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{ asset('plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
 
 </head>
@@ -88,9 +89,7 @@ License: For each use you must have a valid license purchased only from above li
                 <!--begin::Aside-->
                 <div class="d-flex flex-center flex-lg-start flex-column">
                     <!--begin::Logo-->
-                    <a href="../../demo1/dist/index.html" class="mb-7">
-                        <img alt="Logo" src="{{ asset('media/logos/custom-3.svg') }}" />
-                    </a>
+                        <img id="login_logo" alt="Logo" src="{{ asset('media/logos/main-logo.png') }}" />
                     <!--end::Logo-->
                     <!--begin::Title-->
                     <h2 class="text-white fw-normal m-0">Branding tools designed for your business</h2>

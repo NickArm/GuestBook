@@ -32,7 +32,7 @@ class LocalBusinessController extends Controller
         $ownerId = $property->owner->id; // Assuming the property model has a relationship to its owner
 
         if ($request->hasFile('image')) {
-            $path = "public/owners/{$ownerId}/properties/{$property->id}/local-businesses/images";
+            $path = "owners/{$ownerId}/properties/{$property->id}/businesses";
             $data['image'] = $request->file('image')->store($path);
         }
         $data['property_id'] = $property->id;
@@ -66,8 +66,8 @@ class LocalBusinessController extends Controller
             if ($localBusiness->image) {
                 Storage::disk('public')->delete(str_replace('public/', '', $localBusiness->image));
             }
-            $path = "public/owners/{$ownerId}/properties/{$property->id}/local-businesses/images";
-            $data['image'] = $request->file('image')->store($path);
+            $path = "owners/{$ownerId}/properties/{$property->id}/businesses";
+            $data['image'] = $request->file('image')->storePubliclyAs($path);
         }
 
         $localBusiness->update($data);
