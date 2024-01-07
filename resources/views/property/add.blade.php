@@ -190,20 +190,6 @@
                     <!--end::Col-->
                 </div>
                 <!--end::Row-->
-                <!--begin::Input group-->
-                <div class="fv-row mb-7">
-                    <!--begin::Label-->
-                    <label class="fs-6 fw-semibold form-label mt-3">
-                        <span>Rules</span>
-                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                            title="Enter any additional notes about the contact (optional)."></i>
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Input-->
-                    <textarea class="form-control form-control-solid" name="property_rules"></textarea>
-                    <!--end::Input-->
-                </div>
-                <!--end::Input group-->
                 <!--begin::Separator-->
                 <div class="separator mb-6"></div>
                 <!--end::Separator-->

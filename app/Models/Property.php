@@ -50,4 +50,9 @@ class Property extends Model
     {
         return $this->hasMany(PropertyPage::class);
     }
+
+    public function socialMediaProfiles()
+    {
+        return $this->hasMany(PropertySocialMedia::class);
+    }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FAQ;
 use App\Models\FAQCategory;
 use App\Models\Property;
+use App\Models\PropertySocialMedia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,7 +37,6 @@ class PropertyController extends Controller
             $property->google_map_url = $validatedData['google_map_url'];
             $property->check_in_time = $validatedData['check_in_time'];
             $property->check_out_time = $validatedData['check_out_time'];
-            $property->rules = $validatedData['property_rules'];
             // You may want to set owner_id based on the logged-in user
             $property->owner_id = auth()->id();
 
@@ -53,7 +53,7 @@ class PropertyController extends Controller
 
     public function edit($id)
     {
-        $property = Property::findOrFail($id);
+        $property = Property::with('socialMediaProfiles')->findOrFail($id);
         // Load countries data from the JSON file
         $countriesJson = file_get_contents(public_path('countries.json'));
         $countries = json_decode($countriesJson, true);
@@ -75,9 +75,24 @@ class PropertyController extends Controller
             'google_map_url' => 'nullable|string',
             'check_in_time' => 'nullable',
             'check_out_time' => 'nullable',
-            'property_rules' => 'nullable|string',
             'property_main_image' => 'nullable|file|mimes:jpeg,png,jpg',
         ]);
+        // Clear existing social media profiles
+        $property->socialMediaProfiles()->delete();
+
+        // Check if social media data is provided
+        if ($request->has(['social_media_name', 'profile_url'])) {
+            foreach ($request->input('social_media_name') as $index => $name) {
+                // Ensure the name and URL are not empty
+                if ($name && $request->profile_url[$index]) {
+                    PropertySocialMedia::create([
+                        'property_id' => $id,
+                        'social_media_name' => $name,
+                        'profile_url' => $request->profile_url[$index],
+                    ]);
+                }
+            }
+        }
 
         // Manual update of the property's attributes
         $property->title = $validatedData['property_title'];
@@ -88,7 +103,6 @@ class PropertyController extends Controller
         $property->google_map_url = $validatedData['google_map_url'];
         $property->check_in_time = $validatedData['check_in_time'];
         $property->check_out_time = $validatedData['check_out_time'];
-        $property->rules = $validatedData['property_rules'];
         // Check if an image was uploaded and validated before attempting to save it
         if (isset($validatedData['property_main_image'])) {
             $property->main_image = $validatedData['property_main_image'];

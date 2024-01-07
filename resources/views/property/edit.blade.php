@@ -113,9 +113,9 @@
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
                             <label class="fs-6 fw-semibold form-label mt-3">
-                                <span class="required">Email</span>
+                                <span class="required">Contant by Email</span>
                                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                    title="Enter the contact's email."></i>
+                                    title="Enter the property contact email."></i>
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
@@ -132,7 +132,7 @@
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
                             <label class="fs-6 fw-semibold form-label mt-3">
-                                <span>Phone</span>
+                                <span>Contact by Phone</span>
                                 <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
                                     title="Enter the contact's phone number (optional)."></i>
                             </label>
@@ -248,12 +248,8 @@
                             </label>
                             <!--end::Label-->
                             <!--begin::Input-->
-
-
                             <input type="time" class="form-control form-control-solid" name="check_out_time"
                                 value="{{ $property->check_out_time }}" />
-
-
                             <!--end::Input-->
                         </div>
                         <!--end::Input group-->
@@ -262,20 +258,59 @@
                     <!--end::Col-->
                 </div>
                 <!--end::Row-->
-                <!--begin::Input group-->
-                <div class="fv-row mb-7">
-                    <!--begin::Label-->
-                    <label class="fs-6 fw-semibold form-label mt-3">
-                        <span>Rules</span>
-                        <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                            title="Enter any additional notes about the contact (optional)."></i>
-                    </label>
-                    <!--end::Label-->
-                    <!--begin::Input-->
-                    <textarea id="kt_docs_tinymce_basic" class="form-control form-control-solid" name="property_rules">{{ $property->rules }}</textarea>
-                    <!--end::Input-->
+
+                <!--begin::Social Media Section-->
+                <div class="row row-cols-1 row-cols-sm-2 rol-cols-md-1 row-cols-lg-2">
+                    <div class="col">
+                        <div class="mb-7">
+                            <label class="fs-6 fw-semibold mb-3">
+                                Social Media Profiles
+                            </label>
+                            
+                            <!--begin::Social Media Repeater-->
+                            <div id="social-media-profiles">
+                                <!-- Loop through existing profiles and display them -->
+                                @foreach($property->socialMediaProfiles as $profile)
+                                <div class="social-media-profile" data-id="{{ $profile->id }}">
+                                    <div class="row mb-2">
+                                        <!-- Social Media Selection -->
+                                        <div class="col">
+                                            <select class="form-select form-select-solid" name="social_media_name[]">
+                                                <option value="">Select a Social Media</option>
+                                                <option value="facebook" {{ $profile->social_media_name == 'facebook' ? 'selected' : '' }}>Facebook</option>
+                                                <option value="facebook" {{ $profile->social_media_name == 'twitter' ? 'selected' : '' }}>Twitter</option>
+                                                <option value="facebook" {{ $profile->social_media_name == 'instagram' ? 'selected' : '' }}>Instagram</option>
+                                                <option value="facebook" {{ $profile->social_media_name == 'linkedin' ? 'selected' : '' }}>Linkedin</option>
+                                                <option value="facebook" {{ $profile->social_media_name == 'tiktok' ? 'selected' : '' }}>TikTok</option>
+                                                <!-- Repeat for other social media -->
+                                            </select>
+                                        </div>
+                                        <!-- URL Input -->
+                                        <div class="col">
+                                            <input type="text" class="form-control form-control-solid" name="profile_url[]" value="{{ $profile->profile_url }}" placeholder="Profile URL">
+                                        </div>
+                                        <!-- Remove Button -->
+                                        <div class="col-auto">
+                                            <button type="button" class="btn btn-icon btn-light-danger" onclick="removeProfile(this)">
+                                                <i class="la la-remove"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                            <!-- Social Media Add Button -->
+                            <button type="button" class="btn btn-light-primary" onclick="addMoreProfiles()">Add More</button>
+                        </div>
+                    </div>
                 </div>
-                <!--end::Input group-->
+                <!--end::Social Media Section-->
+
+
+
+
+
+
                 <!--begin::Separator-->
                 <div class="separator mb-6"></div>
                 <!--end::Separator-->
@@ -300,17 +335,44 @@
     </div>
 
     <!--end::Global Javascript Bundle-->
-    <script src="{{ asset('plugins/custom/tinymce/tinymce.bundle.js ') }}"></script>
-
+    
     <script>
-        var options = {
-            selector: "#kt_docs_tinymce_basic",
-            height: "480"
-        };
+    // Function to add more profiles
+    function addMoreProfiles() {
+        const profilesContainer = document.getElementById('social-media-profiles');
+        const newProfileHTML = `
+            <div class="social-media-profile">
+                <div class="row mb-2">
+                    <div class="col">
+                        <select class="form-select form-select-solid" name="social_media_name[]">
+                            <option value="">Select a Social Media</option>
+                            <option value="facebook">Facebook</option>
+                            <option value="twitter">Twitter</option>
+                            <option value="instagram">Instagram</option>
+                            <option value="linkedin">LinkedIn</option>
+                            <option value="tiktok">TikTok</option>
+                            <!-- Add more options as needed -->
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input type="text" class="form-control form-control-solid" name="profile_url[]" placeholder="Profile URL">
+                    </div>
+                    <div class="col-auto">
+                        <button type="button" class="btn btn-icon btn-light-danger" onclick="removeProfile(this)">
+                            <i class="la la-remove"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        profilesContainer.insertAdjacentHTML('beforeend', newProfileHTML);
+    }
 
 
-
-        tinymce.init(options);
+    // Function to remove a profile
+    function removeProfile(button) {
+        button.closest('.social-media-profile').remove();
+    }
     </script>
 
     <!--end::Javascript-->
