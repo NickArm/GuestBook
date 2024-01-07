@@ -39,7 +39,7 @@ License: For each use you must have a valid license purchased only from above li
     <link href="{{ asset('css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <!--end::Head-->
 <!--begin::Body-->

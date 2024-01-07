@@ -69,10 +69,13 @@ Route::middleware(['role:owner'])->group(function () {
     Route::post('property/{property}/guide', [PropertyGuideController::class, 'store'])->name('guide.store');
     Route::get('property/{property}/guide/{guide}/edit', [PropertyGuideController::class, 'edit'])->name('guide.edit');
     Route::put('property/{property}/guide/{guide}', [PropertyGuideController::class, 'update'])->name('guide.update');
-    Route::delete('property/{property}/guide/{guide}', [PropertyGuideController::class, 'destroy'])->name('property.guide.destroy');
+    Route::post('property/{property}/guide/{guide}', [PropertyGuideController::class, 'destroy'])->name('property.guide.destroy');
     // Property's FAQs Routes
     Route::post('/faq-category/store', [FAQCategoryController::class, 'store'])->name('faq_category.store');
     Route::post('/faq/store', [FAQController::class, 'store'])->name('faq.store');
+    Route::get('/faq/edit/{id}', [FAQController::class, 'edit'])->name('faq.edit');
+    Route::post('/faq/update/{id}', [FAQController::class, 'update'])->name('faq.update');
+    Route::delete('/faq/destroy/{id}', [FAQController::class, 'destroy'])->name('faq.destroy');
     // Property's Local Busineses Routes
     Route::get('property/{property}/local-business/create', [LocalBusinessController::class, 'create'])->name('local-business.create');
     Route::post('property/{property}/local-business', [LocalBusinessController::class, 'store'])->name('local-business.store');

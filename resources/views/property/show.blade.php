@@ -167,55 +167,7 @@
         </div>
     </div>
 
-    <!-- Add a new FAQ Modal -->
-    <div class="modal fade" id="addFAQModal" tabindex="-1" aria-labelledby="addFAQModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addFAQModalLabel">Add a new FAQ</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form action="{{ route('faq.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="property_id" id="property_id" value="{{ $property->id }}">
-                        <div class="mb-3">
-                            <label for="faq_category" class="form-label">Select Category</label>
-                            <select class="form-control" id="faq_category" name="category_id" required
-                                onchange="checkNewCategorySelected(this);">
-                                <!-- Existing categories -->
-                                @foreach ($faq_categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                                <!-- Option to add a new category -->
-                                <option value="new">Add New Category</option>
-                            </select>
-                        </div>
-                        <!-- Input for the new category name (hidden by default) -->
-                        <div class="mb-3" id="newCategoryInput" style="display: none;">
-                            <label for="new_category_name" class="form-label">New Category Name</label>
-                            <input type="text" class="form-control" id="new_category_name" name="new_category_name">
-                        </div>
-                        <div class="mb-3">
-                            <label for="question" class="form-label">Question</label>
-                            <input type="text" class="form-control" id="question" name="question" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="answer" class="form-label">Answer</label>
-                            <textarea class="form-control" id="answer" name="answer" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Add FAQ</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-
-
-    <!-- Script to toggle the new category input based on dropdown selection -->
+    
 
 
 
