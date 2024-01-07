@@ -9,6 +9,7 @@ use App\Http\Controllers\LocalBusinessController;
 use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyGuideController;
+use App\Http\Controllers\PropertyPageController;
 use App\Http\Controllers\PropertyServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -88,6 +89,12 @@ Route::middleware(['role:owner'])->group(function () {
     Route::get('property/{property}/service/{service}/edit', [PropertyServiceController::class, 'edit'])->name('service.edit');
     Route::put('service/{service}', [PropertyServiceController::class, 'update'])->name('service.update');
     Route::delete('property/{property}/service/{service}', [PropertyServiceController::class, 'destroy'])->name('property.service.destroy');
+    // Property's Pages Routes
+    Route::get('property/{property}/pages/create', [PropertyPageController::class, 'create'])->name('page.create');
+    Route::post('property/{property}/pages/store', [PropertyPageController::class, 'store'])->name('page.store');
+    Route::get('property/{property}/page/{page}/edit', [PropertyPageController::class, 'edit'])->name('page.edit');
+    Route::put('property/{property}/page/{page}', [PropertyPageController::class, 'update'])->name('page.update');
+    Route::delete('property/{property}/page/{page}', [PropertyPageController::class, 'destroy'])->name('property.page.destroy');
 
     /*for testing*/
     Route::get('property/{property}/service/{service}', [PropertyServiceController::class, 'show'])->name('service.show');

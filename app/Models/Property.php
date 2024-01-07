@@ -45,4 +45,9 @@ class Property extends Model
     {
         return $this->hasMany(PropertyService::class);
     }
+
+    public function pages()
+    {
+        return $this->hasMany(PropertyPage::class);
+    }
 }

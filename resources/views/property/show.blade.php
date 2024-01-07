@@ -98,13 +98,6 @@
                         Services</a>
                 </li>
                 <!--end::Nav item-->
-                <!--begin::Nav item for Property Services-->
-                <li class="nav-item mt-2">
-                    <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/services') ? 'active' : '' }}"
-                        href="{{ route('property.show', ['id' => $property->id, 'tab' => 'services']) }}">Property
-                        Rules</a>
-                </li>
-                <!--end::Nav item-->
                 <!--begin::Nav item for FAQs-->
                 <li class="nav-item mt-2">
                     <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/faqs') ? 'active' : '' }}"
@@ -119,7 +112,13 @@
                         Recommendations</a>
                 </li>
                 <!--end::Nav item-->
-
+                <!--begin::Nav item for Property Pages-->
+                <li class="nav-item mt-2">
+                    <a class="nav-link text-active-primary ms-0 me-10 py-5 {{ request()->is('property/' . $property->id . '/pages') ? 'active' : '' }}"
+                        href="{{ route('property.show', ['id' => $property->id, 'tab' => 'pages']) }}">Property
+                        Pages</a>
+                </li>
+                <!--end::Nav item-->
 
             </ul>
             <!--begin::Navs-->
@@ -127,7 +126,8 @@
                 {{-- @include('property.guide.show')
                         @include('property.faq.show')
                         @include('property.local_business.show')
-                        @include('property.service.show') --}}
+                        @include('property.service.show') 
+                        @include('property.page.show')--}}
 
                 <div class="tab-content mt-5" id="myTabContent">
                     @if (!empty($tabContent))

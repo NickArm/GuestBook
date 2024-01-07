@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use Carbon\Carbon;
+
 use App\Models\FAQ;
 use App\Models\FAQCategory;
 use App\Models\Property;
@@ -36,7 +36,7 @@ class PropertyController extends Controller
             $property->google_map_url = $validatedData['google_map_url'];
             $property->check_in_time = $validatedData['check_in_time'];
             $property->check_out_time = $validatedData['check_out_time'];
-            $property->rules = $validatedData['property_rules']; 
+            $property->rules = $validatedData['property_rules'];
             // You may want to set owner_id based on the logged-in user
             $property->owner_id = auth()->id();
 
@@ -118,10 +118,11 @@ class PropertyController extends Controller
 
     public function show($id, $tab = null)
     {
-        $property = Property::with(['guides', 'localBusinesses', 'services'])->find($id);
+        $property = Property::with(['guides', 'localBusinesses', 'services', 'pages'])->find($id);
         $faq_categories = FAQCategory::all();
         $faqs = FAQ::where('property_id', $property->id)->get();
         $local_businesses = $property->localBusinesses;
+        $pages = $property->pages;
 
         $tabContent = '';
         switch ($tab) {
@@ -137,12 +138,15 @@ class PropertyController extends Controller
             case 'local-recommendations':
                 $tabContent = 'property.local_business.show';
                 break;
+            case 'pages':
+                $tabContent = 'property.page.show';
+                break;
             default:
                 // Define a default tab content or leave as an empty string
                 break;
         }
 
-        return view('property.show', compact('property', 'faq_categories', 'faqs', 'local_businesses', 'tabContent'));
+        return view('property.show', compact('property', 'faq_categories', 'faqs', 'local_businesses', 'pages', 'tabContent'));
     }
 
     public function index()

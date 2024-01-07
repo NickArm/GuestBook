@@ -218,7 +218,7 @@
             headers: {
                 'Accept': 'application/json',
                 'X-Requested-With': 'XMLHttpRequest',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'), // CSRF token
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
             },
         })
         .then(response => {
@@ -241,8 +241,6 @@
         });
     }
 }
-
-
 
 </script>
 
