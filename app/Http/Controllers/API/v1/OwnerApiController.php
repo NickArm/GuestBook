@@ -15,7 +15,7 @@ class OwnerApiController extends Controller
     {
         $owner = User::with([
             'properties' => function ($query) {
-                $query->with(['guides', 'faqs', 'services', 'localBusinesses']);
+                $query->with(['guides', 'faqs', 'services', 'localBusinesses', 'pages']);
             },
         ])->find($ownerId);
 
@@ -37,7 +37,7 @@ class OwnerApiController extends Controller
         $propertyId = $request->query('property_id');
         if ($propertyId) {
             // Fetch data for a specific property
-            $property = $user->properties()->with(['guides', 'faqs.category', 'services', 'localBusinesses.category'])
+            $property = $user->properties()->with(['guides', 'faqs.category', 'services', 'localBusinesses.category', 'pages'])
                 ->where('id', $propertyId)
                 ->first();
             if (! $property) {
@@ -46,7 +46,7 @@ class OwnerApiController extends Controller
 
             return response()->json($property, 200);
         } else {
-            $properties = $user->properties()->with(['guides', 'faqs.category', 'services', 'localBusinesses.category'])->get();
+            $properties = $user->properties()->with(['guides', 'faqs.category', 'services', 'localBusinesses.category', 'pages'])->get();
 
             return response()->json($properties, 200);
         }
