@@ -26,7 +26,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/NickArm/GuestBook">
-    <img src="/public/media/main-logo.png" alt="Logo" width="80" height="80">
+    <img src="/public/media/logos/main-logo.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">guestBook</h3>
